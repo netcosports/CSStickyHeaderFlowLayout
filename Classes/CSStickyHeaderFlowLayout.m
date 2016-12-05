@@ -215,6 +215,13 @@ static const NSInteger kHeaderZIndex = 1024;
 
 #pragma mark Helper
 
+- (CGFloat)refreshControlHeight {
+  if (self.refreshControl.refreshing) {
+    return self.refreshControl.frame.size.height;
+  }
+  return 0;
+}
+
 - (void)updateHeaderAttributes:(UICollectionViewLayoutAttributes *)attributes lastCellAttributes:(UICollectionViewLayoutAttributes *)lastCellAttributes
 {
     CGRect currentBounds = self.collectionView.bounds;
@@ -224,7 +231,7 @@ static const NSInteger kHeaderZIndex = 1024;
     CGPoint origin = attributes.frame.origin;
 
     CGFloat sectionMaxY = CGRectGetMaxY(lastCellAttributes.frame) - attributes.frame.size.height;
-    CGFloat y = CGRectGetMaxY(currentBounds) - currentBounds.size.height + self.collectionView.contentInset.top;
+    CGFloat y = CGRectGetMaxY(currentBounds) - currentBounds.size.height + self.collectionView.contentInset.top - [self refreshControlHeight];
 
     if (self.parallaxHeaderAlwaysOnTop) {
         y += self.parallaxHeaderMinimumReferenceSize.height;
@@ -252,7 +259,7 @@ static const NSInteger kHeaderZIndex = 1024;
     CGFloat maxY = CGRectGetMaxY(frame);
 
     // make sure the frame won't be negative values
-    CGFloat y = MIN(maxY - self.parallaxHeaderMinimumReferenceSize.height, bounds.origin.y + self.collectionView.contentInset.top);
+    CGFloat y = MIN(maxY - self.parallaxHeaderMinimumReferenceSize.height, bounds.origin.y + self.collectionView.contentInset.top - [self refreshControlHeight]);
     CGFloat height = MAX(0, -y + maxY);
 
 

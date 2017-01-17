@@ -74,7 +74,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     let adjustedRect = rect.offsetBy(dx: 0, dy: -parallaxHeaderReferenceSize.height)
     
-    guard let _ = collectionView, let originalAttributes = super.layoutAttributesForElements(in: adjustedRect) else { return nil }
+    guard let collectionView = collectionView, let originalAttributes = super.layoutAttributesForElements(in: adjustedRect) else { return nil }
 
     var retVal = [IndexPath: UICollectionViewLayoutAttributes]()
     var parallaxHeaderOnScreen = false
@@ -118,8 +118,9 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
     visibleCells.forEach { $0.zIndex = 1 }
 
-    if parallaxHeaderOnScreen && !CGSize.zero.equalTo(self.parallaxHeaderReferenceSize) {
-      let currentAttributes = CSStickyHeaderFlowLayoutAttributes(forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, with: IndexPath(index: 0))
+    if parallaxHeaderOnScreen && !CGSize.zero.equalTo(self.parallaxHeaderReferenceSize) && collectionView.numberOfSections > 0 {
+      var indexPath = IndexPath(item: 0, section: 0)
+      let currentAttributes = CSStickyHeaderFlowLayoutAttributes(forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, with: indexPath)
       updateParallaxHeaderAttributes(currentAttributes)
 
       retVal[currentAttributes.indexPath] = currentAttributes

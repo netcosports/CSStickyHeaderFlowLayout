@@ -18,6 +18,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     didSet { invalidateLayout() }
   }
 
+  open var refreshControl: UIRefreshControl?
   open var parallaxHeaderMinimumReferenceSize = CGSize.zero
   open var parallaxHeaderAlwaysOnTop = false
   open var disableStickyHeaders = false
@@ -191,6 +192,13 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     return newAttributes
   }
 
+  fileprivate func refreshControlHeight() -> CGFloat {
+    if let refreshControl = refreshControl {
+      return refreshControl.frame.height
+    }
+    return 0.0;
+  }
+
   fileprivate func updateParallaxHeaderAttributes(_ attributes: CSStickyHeaderFlowLayoutAttributes) {
 
     guard let collectionView = self.collectionView else {
@@ -202,7 +210,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     let bounds = collectionView.bounds
     let maxY = frame.maxY
 
-    var y = min(maxY - self.parallaxHeaderMinimumReferenceSize.height, bounds.origin.y + collectionView.contentInset.top)
+    var y = min(maxY - self.parallaxHeaderMinimumReferenceSize.height, bounds.origin.y + collectionView.contentInset.top) - refreshControlHeight()
 
     let height = max(0, -y + maxY)
 

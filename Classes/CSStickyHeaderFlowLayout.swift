@@ -194,7 +194,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
   fileprivate func refreshControlHeight() -> CGFloat {
     if let refreshControl = refreshControl {
-      return refreshControl.frame.height
+      return refreshControl.isRefreshing ? refreshControl.frame.height : 0.0
     }
     return 0.0;
   }

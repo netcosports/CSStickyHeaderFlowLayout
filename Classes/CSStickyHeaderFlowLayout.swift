@@ -120,7 +120,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     visibleCells.forEach { $0.zIndex = 1 }
 
     if parallaxHeaderOnScreen && !CGSize.zero.equalTo(self.parallaxHeaderReferenceSize) && collectionView.numberOfSections > 0 {
-      var indexPath = IndexPath(item: 0, section: 0)
+      let indexPath = IndexPath(item: 0, section: 0)
       let currentAttributes = CSStickyHeaderFlowLayoutAttributes(forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, with: indexPath)
       updateParallaxHeaderAttributes(currentAttributes)
 

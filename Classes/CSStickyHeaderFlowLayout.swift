@@ -26,7 +26,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
   // MARK: Expose Kind Name for ObjC
   
-  open static func elementKindStickyHeaderParallaxHeader() -> String {
+  public static func elementKindStickyHeaderParallaxHeader() -> String {
     return CSStickyHeaderParallaxHeader
   }
   
@@ -80,12 +80,12 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     var retVal = [IndexPath: UICollectionViewLayoutAttributes]()
     var parallaxHeaderOnScreen = false
 
-    let allItems = originalAttributes.flatMap {
+    let allItems = originalAttributes.compactMap {
       $0.copy() as? UICollectionViewLayoutAttributes
     }
 
     var visibleHeaders = allItems.filter {
-      $0.representedElementKind == UICollectionElementKindSectionHeader
+      $0.representedElementKind == UICollectionView.elementKindSectionHeader
     }
 
     let visibleCells = allItems.filter {
@@ -93,7 +93,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     }
 
     let otherVisibleItems = allItems.filter {
-      return $0.representedElementKind == UICollectionElementKindSectionFooter || $0.representedElementCategory == .decorationView
+      return $0.representedElementKind == UICollectionView.elementKindSectionFooter || $0.representedElementCategory == .decorationView
     }
 
     (visibleHeaders + visibleCells).forEach {
@@ -128,7 +128,7 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
     }
 
     if !disableStickyHeaders {
-      visibleHeaders = visibleHeaders.flatMap { (header) in
+      visibleHeaders = visibleHeaders.compactMap { (header) in
         guard let lastCell = lastCells[header.indexPath.section] else {
           return nil
         }

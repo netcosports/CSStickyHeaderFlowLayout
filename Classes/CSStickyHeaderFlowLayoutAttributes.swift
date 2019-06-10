@@ -10,7 +10,7 @@ import UIKit
 
 open class CSStickyHeaderFlowLayoutAttributes: UICollectionViewLayoutAttributes {
 
-  open var progressiveness = CGFloat(0)
+  @objc open var progressiveness = CGFloat(0)
 
   open override func copy(with zone: NSZone?) -> Any {
     let copy = super.copy(with: zone)

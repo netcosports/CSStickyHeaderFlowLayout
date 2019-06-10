@@ -14,19 +14,19 @@ open class CSStickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
   // MARK: Properties
 
-  open var parallaxHeaderReferenceSize = CGSize.zero {
+  @objc open var parallaxHeaderReferenceSize = CGSize.zero {
     didSet { invalidateLayout() }
   }
 
-  open var refreshControl: UIRefreshControl?
-  open var parallaxHeaderMinimumReferenceSize = CGSize.zero
-  open var parallaxHeaderAlwaysOnTop = false
-  open var disableStickyHeaders = false
-  open var disableStretching = false
+  @objc open var refreshControl: UIRefreshControl?
+  @objc open var parallaxHeaderMinimumReferenceSize = CGSize.zero
+  @objc open var parallaxHeaderAlwaysOnTop = false
+  @objc open var disableStickyHeaders = false
+  @objc open var disableStretching = false
 
   // MARK: Expose Kind Name for ObjC
   
-  public static func elementKindStickyHeaderParallaxHeader() -> String {
+  @objc public static func elementKindStickyHeaderParallaxHeader() -> String {
     return CSStickyHeaderParallaxHeader
   }
   
